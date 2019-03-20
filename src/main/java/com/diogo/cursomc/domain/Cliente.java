@@ -15,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.diogo.cursomc.domain.enums.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Cliente implements Serializable {
@@ -29,6 +31,7 @@ public class Cliente implements Serializable {
 	
 	private Integer tipocliente;
 	
+
 	@OneToMany(mappedBy="cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
 	
@@ -36,8 +39,10 @@ public class Cliente implements Serializable {
 	@CollectionTable(name="telefone")
 	private Set<String> telefones = new HashSet<>();
 	
+	@OneToMany(mappedBy="cliente")
 	
-	
+	@JsonIgnore
+	private List<Pedido> pedidos = new ArrayList<>();
 	
 	public List<Endereco> getEnderecos() {
 		return enderecos;
@@ -118,6 +123,12 @@ public class Cliente implements Serializable {
 	}
 	public void setCpfOuCnpj(String cpfOuCnpj) {
 		this.cpfOuCnpj = cpfOuCnpj;
+	}
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 	
 	
